@@ -1,0 +1,99 @@
+#Override app or lib name. By default, the name is set equal to the directory name.
+name: DTOS
+#A string, FirstName SecondName <Email> of the author, example:
+author: DeltaThings Pvt Ltd <deltathings@gmail.com>
+#A string, one-line short description
+description: Master template for DTOS C/C++ project
+
+version: 1.0.1
+libs_version: ${mos.version}
+modules_version: ${mos.version}
+mongoose_os_version: ${mos.version}
+
+tags:
+  - c
+
+sources:
+  - src
+
+#A list of files or directories with files to be copied to the device's filesystem,
+filesystem:
+  - fs
+
+build_vars:
+#  MGOS_HAVE_WIFI: 1
+
+#A list of .a libs or directories with those. Do not put trailing slashes to directory names:
+binary_libs:
+ 
+#Additional preprocessor flags to pass to the compiler
+cdefs:  
+#  MGOS_ENABLE_DEBUG_UDP: 1
+  
+#Modify compilation flags for C (cflags) and C++ (cxxflags).
+cflags:
+  - "-Wno-error"
+
+cxxflags:
+
+#  MQTT by default enabled in dtos_ota->mos.yml, 
+#  if MQTT need to be disbaled,uncomment ["mqtt.enable", false]
+config_schema:
+ # - ["debug.level", 3]   
+  - ["mqtt.enable", false]
+  - ["mqtt.server", "demo.thingsboard.io:1883"]
+  - ["mqtt.user", "rk6Z9GC1ZKOCrK16TeVg"]   
+ # - ["wifi.sta.ssid", "air_deltaiot"]
+ # - ["wifi.sta.pass", "!amadmin#01"]
+  - ["wifi.ap.enable",true]
+  - ["wifi.ap.ssid","IPS_Annunciator"]
+  - ["wifi.ap.pass","pass123#"]
+  - ["lora", "o", {title: "LoRa Configuration"}]
+  - ["lora.frequency", "i", 865000000, {title:"LoRa_FREQUENCY"}]
+  - ["lora.dio0", "i", 32, {title: "Dio0 config"}]
+  - ["lora.reset", "i", 27, {title: "Reset Config"}]
+  - ["lora.enable", "b", true, {title: "true for enable lora communication"}]
+  - ["serial","o",{title: "UART Configuration"}]
+  - ["serial.num","i",2,{title: "UART NUM"}]  #UART TX-17 RX-16
+  - ["serial.baud_rate","i",9600,{title: "UART baud rate"}]
+  - ["serial.bits","i",8,{title: "UART bits"}]
+  - ["serial.tx_buf_size","i",256,{title: "UART TX buf size"}]
+  - ["serial.rx_buf_size","i",256,{title: "UAR RX buf size"}]
+  - ["modbus","o",{title: "modbus Configuration"}]
+  - ["modbus.de_re","i",4,{title: "modbus DE & Re PIN"}]
+  - ["modbus.buzzer","i",5,{title: "ANNCUIATOR BUZZER PIN"}]
+  - ["modbus.enable","b",false,{title: "true for enable modbus"}]
+  - ["neopixel","o",{title: "neopixel Configuration"}]
+  - ["neopixel.data_pin","i",18,{title: "neopixel data PIN"}]
+  - ["neopixel.leds_num","i",11,{title: "No.Of LEDS in a strip"}]
+
+  
+
+conds:
+  - when: mos.platform == "esp32"
+    apply:
+      config_schema:
+#SPI configuration
+        - ["spi.enable", true]
+        - ["spi.miso_gpio", 12]
+        - ["spi.mosi_gpio", 13]
+        - ["spi.sclk_gpio", 14]
+        - ["spi.cs0_gpio", 15]
+
+
+libs:
+  - origin: https://github.com/delta-things/boards
+  - origin: https://github.com/delta-things/ca-bundle
+  - origin: https://github.com/delta-things/rpc-service-config
+  - origin: https://github.com/delta-things/rpc-service-fs
+  - origin: https://github.com/delta-things/rpc-uart
+  - origin: https://github.com/delta-things/mqtt 
+  - origin: https://github.com/delta-things/arduino-lora
+  - origin: https://github.com/delta-things/dtos-ota
+  - origin: https://github.com/delta-things/neopixel
+  - origin: https://github.com/delta-things/http-server
+  - origin: https://github.com/delta-things/wifi-setup-web-ui
+
+
+# Used by the mos tool to catch mos binaries incompatible with this file format
+manifest_version: 2017-05-18
