@@ -216,18 +216,23 @@ void Check_Button_State(uint8_t *buffer)
     {
       LOG(LL_INFO, ("[INFO]: BUTTON PRESSED"));
 
-      switch(buffer[1])
+      switch(buffer[1])                 // from 101 -> DYNAMIC DEVICES and from 151 -> STATIC DEVICES
        {
-         case 101 : Rgb_Red(_101); LOG(LL_INFO, ("[INFO]: NODE ID NUMBER: %d",buffer[1]));break;
-         case 102 : Rgb_Red(_102); LOG(LL_INFO, ("[INFO]: NODE ID NUMBER: %d",buffer[1]));break;
-         case 103 : Rgb_Red(_103); LOG(LL_INFO, ("[INFO]: NODE ID NUMBER: %d",buffer[1]));break;
-         case 104 : Rgb_Red(_104); LOG(LL_INFO, ("[INFO]: NODE ID NUMBER: %d",buffer[1]));break;
-         case 105 : Rgb_Red(_105); LOG(LL_INFO, ("[INFO]: NODE ID NUMBER: %d",buffer[1]));break;
-         case 151 : Rgb_Red(_110);
-         case 152 : Rgb_Red(_110); 
-         case 153 : Rgb_Red(_110); 
-         case 154 : Rgb_Red(_110); 
-         case 155 : Rgb_Red(_110); LOG(LL_INFO, ("[INFO]: NODE ID NUMBER: %d",buffer[1]));break; 
+         case 101 : Rgb_Red(_110); 
+         case 102 : Rgb_Red(_110); 
+         case 103 : Rgb_Red(_110); 
+         case 104 : Rgb_Red(_110); 
+         case 105 : Rgb_Red(_110);
+         case 106 : Rgb_Red(_110); 
+         case 107 : Rgb_Red(_110);
+         case 108 : Rgb_Red(_110); 
+         case 109 : Rgb_Red(_110); 
+         case 110 : Rgb_Red(_110); LOG(LL_INFO, ("[INFO]: NODE ID NUMBER: %d",buffer[1]));break;
+         case 151 : Rgb_Red(_101); LOG(LL_INFO, ("[INFO]: NODE ID NUMBER: %d",buffer[1]));break;
+         case 152 : Rgb_Red(_102); LOG(LL_INFO, ("[INFO]: NODE ID NUMBER: %d",buffer[1]));break;                                         
+         case 153 : Rgb_Red(_103); LOG(LL_INFO, ("[INFO]: NODE ID NUMBER: %d",buffer[1]));break;
+         case 154 : Rgb_Red(_104); LOG(LL_INFO, ("[INFO]: NODE ID NUMBER: %d",buffer[1]));break;
+         case 155 : Rgb_Red(_105); LOG(LL_INFO, ("[INFO]: NODE ID NUMBER: %d",buffer[1]));break;
          default : All_Rgb_Green();break;
        }
     }
